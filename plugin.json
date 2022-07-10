@@ -12,8 +12,7 @@
   "changelogUrl": "https://github.com/emc23/techtools/blob/master/CHANGELOG.md",
   "sourceUrl": "hhttps://github.com/emc23/techtools/",
   "donateUrl": "https://paypal.me/lcdemc",
-  "modules": [
-    {
+  "modules": [  {
 		  "slug": "Sinth",
 		  "name": "Sinth",
 		  "description": "Simple Sinewave synth",
@@ -41,7 +40,7 @@
 			"comparator"
 		  ]
 		},
-    {
+    	{
 		  "slug": "AMuxDemux",
 		  "name": "AMuxDemux",
 		  "description": "Simple Muxer/Demuxer",
@@ -49,6 +48,30 @@
 			"Glitch",
 			"AMuxDemux"
 		  ]
-		}
+		},
+    	{
+		  "slug": "AMuxDemux",
+		  "name": "AMuxDemux",
+		  "description": "Simple Muxer/Demuxer",
+		  "tags": [
+			"Glitch",
+			"AMuxDemux"
+		  ]
+		},
+		{
+			"slug": "Scanner",
+			"name": "FMRadio",
+			"description": "rtl-sdr FM Radio Tuner",
+			"tags": [
+			  "Tuner"
+		]
+	  },	  {
+		"slug": "Glompler",
+		"name": "Glompler",
+		"description": "Glitch Rompler",
+		"tags": [
+		  "Rompler"
+			]
+		 }
 	]
 }
