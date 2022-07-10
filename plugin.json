@@ -1,0 +1,54 @@
+{
+  "slug": "EMC23-TechTools-01",
+  "name": "EMC23 TechTools-01",
+  "version": "2.0.0",
+  "license": "GPL-3.0-only",
+  "brand": "EMC23",
+  "author": "Techbot",
+  "authorEmail": "djtechbot@gmail.com",
+  "authorUrl": "https://twitter.com/techbot",
+  "pluginUrl": "https://github.com/emc23/techtools/",
+  "manualUrl": "https://github.com/emc23/techtools/blob/master/MANUAL.md",
+  "changelogUrl": "https://github.com/emc23/techtools/blob/master/CHANGELOG.md",
+  "sourceUrl": "hhttps://github.com/emc23/techtools/",
+  "donateUrl": "https://paypal.me/lcdemc",
+  "modules": [
+    {
+		  "slug": "Sinth",
+		  "name": "Sinth",
+		  "description": "Simple Sinewave synth",
+		  "tags": [
+			"Glitch",
+			"Sinth",
+			"Subtractive Synth"
+		  ]
+		},
+    {
+		  "slug": "Seq08",
+		  "name": "Seq08",
+		  "description": "Simple Seq08",
+		  "tags": [
+			"Glitch",
+			"Seq08"
+		  ]
+		},
+    {
+		  "slug": "AComparator",
+		  "name": "AComparator",
+		  "description": "Simple comparator",
+		  "tags": [
+			"Glitch",
+			"comparator"
+		  ]
+		},
+    {
+		  "slug": "AMuxDemux",
+		  "name": "AMuxDemux",
+		  "description": "Simple Muxer/Demuxer",
+		  "tags": [
+			"Glitch",
+			"AMuxDemux"
+		  ]
+		}
+	]
+}

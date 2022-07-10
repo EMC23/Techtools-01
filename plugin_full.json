@@ -1,0 +1,18 @@
+{
+  "slug": "EMC23-TechTools-01",
+  "name": "EMC23 TechTools-01",
+  "version": "2.0.0",
+  "license": "GPL-3.0-only",
+  "brand": "EMC23",
+  "author": "Techbot",
+  "authorEmail": "djtechbot@gmail.com",
+  "authorUrl": "https://twitter.com/techbot",
+  "pluginUrl": "https://github.com/emc23/techtools-01/",
+  "manualUrl": "https://github.com/emc23/techtools-01/blob/master/MANUAL.md",
+  "changelogUrl": "https://github.com/emc23/techtools-01/blob/master/CHANGELOG.md",
+  "sourceUrl": "hhttps://github.com/emc23/techtools-01/",
+  "donateUrl": "https://paypal.me/lcdemc",
+  "modules": [
+	
+	]
+}
