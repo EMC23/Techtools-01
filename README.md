@@ -10,7 +10,7 @@
 </td>
 </tr>
 </table>
-
+<h3 style="border-bottom: 0px;">Part I Glitch Rompler</h3>
 <p>
 Step 1 Extract Step Seq and sampler from Original Authors code, add dependencies, remove extra functions, hardcode definitions: DONE </br>
 Step 2 Make Duphonic by duplicating play code in process function: DONE </br>
@@ -18,7 +18,20 @@ Step 3 Make Polyphonic replacing original & duplicated code with i loop over the
 Step 4 Combine seq and sampler into one module: DONE </br>
 Step 5 Remove intermediate inputs and outputs: DONE </br>
 Step 6 Remove sample load option replace with rompler cycle option: DONE </br>
+</p>
 
+<h3 style="border-bottom: 0px;">Part II Radio Scanner</h3>
+<p>
+Step 1 Upgrade code from pre version 1 aka .06 to version 2.0</br>
+Step 2 Multithreading</br>
+Step 3 CV Scanning</br>
+Step 4 Mux Demux for multiple channels?</br>
+</p>
+
+<h3 style="border-bottom: 0px;">Part III Combine Both</h3>
+<p>
+Step 1 Create Single plugin.dll</br>
+Step 2 Create additional in and out CVs</br>
 </p>
 
 <hr style="width:1000px; border: 1px solid black;"/>

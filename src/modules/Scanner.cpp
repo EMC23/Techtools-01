@@ -57,13 +57,11 @@ uint32_t out_block_size = DEFAULT_BUF_LENGTH;
 // uint8_t *datathing;
 //static uint32_t *applied_bw = (uint32_t*)malloc(1*sizeof(uint32_t));
 
-
 static const int n_read = NUM_READ;
 //static int	_samp_rate = NUM_READ * 40000;
 
 //static Bin sample_bin[512]; /*!< 'Bin' array that will contain IDs and values */
 long currentFreq=0;
-
 
 struct int_queue{
     uint8_t *arr;
@@ -104,15 +102,13 @@ float get_int(struct int_queue *queue, int index)
 }
 
 int my_reset(struct int_queue queue){
-			//print_int_queue(&queue);
+			// print_int_queue(&queue);
 			destroy_int_queue(&queue);
 
 			init_int_queue(&queue, NUM_READ);
 			return 0;
 		}
-
-
-//struct SDRadio SDR;
+// struct SDRadio SDR;
 
 struct MyLabel : Widget {
 	std::string text;
@@ -123,7 +119,7 @@ struct MyLabel : Widget {
 	}
 //	void draw(const DrawArgs& args) override {
 //		nvgTextAlign(args.vg, NVG_ALIGN_CENTER|NVG_ALIGN_BASELINE);
-///		nvgFillColor(args.vg, color);
+// 		nvgFillColor(args.vg, color);
 //		nvgFontSize(args.vg, fontSize);
 //		nvgText(args.vg, box.pos.x, (box.pos.y)-80, text.c_str(), NULL);
 //	}
@@ -135,12 +131,12 @@ struct Scanner : Module {
 	enum ParamIds {
 		PITCH_PARAM,
 	//	TUNE_ATT,
-    //    QUANT_PARAM,
+    //  QUANT_PARAM,
 	//	BUTTON_PARAM,
 		NUM_PARAMS
 	};
 	enum InputIds {
-//	PITCH_INPUT,
+	//	PITCH_INPUT,
 		NUM_INPUTS
 	};
 	enum OutputIds {
@@ -153,7 +149,7 @@ struct Scanner : Module {
 	};
 
 	static void sig_handler(int signum){
- 		// log_info("Signal caught, exiting...\n");
+ 	//  log_info("Signal caught, exiting...\n");
 		do_exit();
 	}
 
@@ -173,20 +169,16 @@ struct Scanner : Module {
 		// sigaction(SIGPIPE, &sig_act, NULL);
 	return 0;
 }
-  
-
-
 	static int configure_rtlsdr(){
+	INFO("sux2: #%d\n",  NUM_PARAMS   );
 		int device_count = rtlsdr_get_device_count();
 		if (!device_count) {
 			INFO("No supported devices found.\n");
 	   //		exit(1);
 		}
-
 		for(int i = 0; i < device_count; i++){
 			INFO("#%d: %s\n", n, rtlsdr_get_device_name(i));
 		}
-
 		int dev_open = rtlsdr_open(&dev, _dev_id);
 		if (dev_open < 0) {
 			INFO("Failed to open RTL-SDR device #%d\n", _dev_id);
@@ -227,15 +219,13 @@ struct Scanner : Module {
 
 		rtlsdr_set_offset_tuning(dev, _offset_tuning);
 		rtlsdr_set_center_freq(dev, _center_freq);
-        rtlsdr_set_sample_rate(dev, (int)APP->engine->getSampleRate());
+        rtlsdr_set_sample_rate(dev, (int) APP->engine->getSampleRate());
 		//rtlsdr_set_sample_rate(dev, _samp_rate);
 		//rtlsdr_set_tuner_bandwidth(dev, 238000);
 		INFO("bandwidth: %d " ,rtlsdr_set_and_get_tuner_bandwidth(dev, applied_bw, p_applied, 1));
 
 	    INFO("freq: %d ",rtlsdr_get_center_freq(dev));
 		//INFO("bandwidth: %d ",rtlsdr_get_tuner_bandwidth(dev, 240));
-
-
 
 		int r = rtlsdr_reset_buffer(dev);
 		if (r < 0){
@@ -249,7 +239,6 @@ struct Scanner : Module {
 	rtlsdr_cancel_async(dev);
 	exit(0);
 }
-
 	static void my_callback(unsigned char *buf, uint32_t len, void *ctx){
 	if (ctx) {
              for (int iter=0; iter < len; iter++){
@@ -258,13 +247,10 @@ struct Scanner : Module {
 		     }
 			//	do_exit = 1;
             //	rtlsdr_cancel_async(dev);
-			}
+		}
 }
-
 	Scanner() {
-
-        // 	init_int_queue(&queue, 512);
-
+    // 	init_int_queue(&queue, 512);
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
 	//	configParam(BUTTON_PARAM,0.0, 1.0, 0.0, string::f("Button"));
      	configParam(PITCH_PARAM, HZ_FLOOR, HZ_CEIL, HZ_CENTER, "");
@@ -283,63 +269,52 @@ struct Scanner : Module {
 		return float(longFreq)/ 1000000.f; // float quantities are in millions so this is a million
 	}
 
-
 	void read(){
 		int actual_length;
 		uint8_t *data = (uint8_t *)(malloc(out_block_size));
 		INFO("I read you. \n");
 		rtlsdr_read_sync(dev, data, NUM_READ , &actual_length);
 	//	r= rtlsdr_read_async(dev, my_callback,  datathing, 0, out_block_size);
-     //INFO("datathing %d \n", datathing);
-
-		for (int iter=0; iter< NUM_READ; iter++){
+    // INFO("datathing %d \n", datathing);
+	for (int iter=0; iter< NUM_READ; iter++){
 		  push_int(&queue, (uint8_t)data[iter]);
 		// INFO("iter %d here %d   size %d \n",iter, (uint8_t)get_int(&queue, iter),out_block_size);
- 
 		}
 		Mega=0;
 		free(data);
 	}
 
-
 	void process(const ProcessArgs &args) override {
-   
+
 		if (Mega == NUM_READ){
 			read();
 			   freq = params[PITCH_PARAM].getValue();
- 
 
  //rtlsdr_set_and_get_tuner_bandwidth(dev, applied_bw, p_applied, 0);
 
 if (applied_bw - new_bw){
 
- //rtlsdr_set_and_get_tuner_bandwidth(dev, applied_bw, p_applied, 1);
-
+        // rtlsdr_set_and_get_tuner_bandwidth(dev, applied_bw, p_applied, 1);
  new_bw = applied_bw;
-
 }
-
-
 		INFO("bandwidth: %d " ,applied_bw);
 			}
 		// wait a number of cycles before we use the clock and run inputs to allow them propagate correctly after startup
 		if (startUpCounter > 0)
 			startUpCounter--;
+    	// float freqOff = params[TUNE_ATT].getValue()*inputs[PITCH_INPUT].getVoltage()/MAX_VOLTAGE;
+        // float freqOff = 2/MAX_VOLTAGE;
 
-
-	//float freqOff = params[TUNE_ATT].getValue()*inputs[PITCH_INPUT].getVoltage()/MAX_VOLTAGE;
-//	float freqOff = 2/MAX_VOLTAGE;
-
-	//float freqComputed = freq;
-	//float freqComputed = freq + freqOff;
+	// float freqComputed = freq;
+	// float freqComputed = freq + freqOff;
 	
     long longFreq = getFreq(freq) ; // lots of zeros
 
-	//enum Quantization {HUNDREDK, TENK, NONE};
-   // Quantization scale = static_cast<Quantization>(roundf(params[QUANT_PARAM].getValue()));
-	//long m_width;
-	//switch(scale) {
-		//case HUNDREDK: 
+	// enum Quantization {HUNDREDK, TENK, NONE};
+    // Quantization scale = static_cast<Quantization>(roundf(params[QUANT_PARAM].getValue()));
+	// long m_width;
+	// switch(scale) {
+		//case HUNDREDK:
 		//	m_width = 10000;
 			//	rtlsdr_set_center_freq(dev, _center_freq);
 		//	break;
@@ -358,16 +333,13 @@ if (applied_bw - new_bw){
 //			longFreq += 10000;
 //		}
 //	rtlsdr_set_center_freq(dev, longFreq);
- 
-  //  if (params[BUTTON_PARAM].getValue()) {
+//
+//  if (params[BUTTON_PARAM].getValue()) {
 //		rtlsdr_set_center_freq(dev, longFreq);
-  //  }
+//  }
 
 
 if (longFreq - currentFreq) {
-
-
-
  		rtlsdr_set_center_freq(dev, longFreq);
 	//	INFO("freq: %d ",rtlsdr_get_cente	r_freq(dev));
 		 currentFreq = longFreq;
@@ -376,7 +348,7 @@ if (longFreq - currentFreq) {
 	//		stream << std::fixed << std::setprecision(3) << std::setw(7) << getMegaFreq(longFreq);
 	//	 	std::cout << std::setw(7) << std::fixed << std::setprecision(3) << getMegaFreq(longFreq) << "\n";
 	//		linkedLabel->text = stream.str();
-} 
+}
 
 //	std::stringstream stream;
 //	stream << std::fixed << std::setprecision(3) << std::setw(7) << getMegaFreq(longFreq);
@@ -405,7 +377,7 @@ struct ScannerWidget : ModuleWidget {
 	//	addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 66.063)), module, Scanner::TUNE_ATT));
 	//	addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15.24, 77.478)), module, Scanner::PITCH_INPUT));
 	//	addParam(createParam<CKSSThree>(Vec(RACK_GRID_WIDTH/2, 240), module, Scanner::QUANT_PARAM));
-   //     addParam(createParam<LightupButton>(Vec(15.24, 77.478 + 3), module, Scanner::BUTTON_PARAM));
+    //  addParam(createParam<LightupButton>(Vec(15.24, 77.478 + 3), module, Scanner::BUTTON_PARAM));
 
 
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(15.24, 100)), module, Scanner::SINE_OUTPUT));

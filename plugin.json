@@ -1,6 +1,6 @@
 {
-  "slug": "EMC23-TechTools-01",
-  "name": "EMC23 TechTools-01",
+  "slug": "EMC23-TechTools",
+  "name": "EMC23 TechTools",
   "version": "2.0.0",
   "license": "GPL-3.0-only",
   "brand": "EMC23",
@@ -65,7 +65,8 @@
 			"tags": [
 			  "Tuner"
 		]
-	  },	  {
+	  },
+	   {
 		"slug": "Glompler",
 		"name": "Glompler",
 		"description": "Glitch Rompler",
