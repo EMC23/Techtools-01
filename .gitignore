@@ -34,3 +34,7 @@
 dist/
 
 .vscode/
+
+*.log
+
+dep/

@@ -10,6 +10,12 @@
 </td>
 </tr>
 </table>
+
+Here's the deal. Libusb on windows seems to add several tenths of a milisecond over Linux to the tuning routine, making CV controlled tuning on windows nigh on impossible.
+
+After a year on and off of making no progress until I doscovered this and switched back to Ubuntu, I don't have the energy to go digging into Windows impementation of Libusb. I'll continue developibng the device for Linux only and will revist in 6 months time, when I know multithreading better than I do now.
+
+
 <h3 style="border-bottom: 0px;">Part I Glitch Rompler</h3>
 <p>
 Step 1 Extract Step Seq and sampler from Original Authors code, add dependencies, remove extra functions, hardcode definitions: DONE </br>

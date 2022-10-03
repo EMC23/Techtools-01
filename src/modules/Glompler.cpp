@@ -3,9 +3,9 @@
 //  Copyright (C) 2022  EMC23
 //----------------------------------------------------------------------------
 #include "plugin.hpp"
-#include "inc/Utility.hpp"
-#include "inc/GateProcessor.hpp"
-#include "inc/SequencerExpanderMessage.hpp"
+#include "../inc/Utility.hpp"
+#include "../inc/GateProcessor.hpp"
+#include "../inc/SequencerExpanderMessage.hpp"
 #include <iostream>
 #include <experimental/filesystem>
 //namespace fs = std::experimental::filesystem;
@@ -18,7 +18,7 @@ using namespace std;
 #include "dr_wav.h"
 #include <vector>
 #include "cmath"
-#include "dirent.h"
+#include <dirent.h>
 #include <algorithm> //----added by Joakim Lindbom
 // #include "PLAY.hpp"
 #define STRUCT_NAME Glompler
@@ -33,63 +33,7 @@ using namespace std;
 #ifndef M_PI
     #define M_PI 3.14159265358979323846
 #endif
-// save the given global count modula settings`
-void saveSettings(json_t *rootJ) {
-	std::string settingsFilename = asset::user("CountModula.json");
 
-	FILE *file = fopen(settingsFilename.c_str(), "w");
-
-	if (file) {
-		json_dumpf(rootJ, file, JSON_INDENT(2) | JSON_REAL_PRECISION(9));
-		fclose(file);
-	}
-}
-// read the global count modula settings
-json_t * readSettings() {
-	std::string settingsFilename = asset::user("CountModula.json");
-	FILE *file = fopen(settingsFilename.c_str(), "r");
-	
-	if (!file) {
-		return json_object();
-	}
-
-	json_error_t error;
-	json_t *rootJ = json_loadf(file, 0, &error);
-
-	fclose(file);
-	return rootJ;
-}
-// read the given default integer value from the global count modula settings file
-int readDefaultIntegerValue(std::string setting) {
-	int value = 0; // default to the standard value
-
-	// read the settings file
-	json_t *rootJ = readSettings();
-
-	// get the default value
-	json_t* jsonValue = json_object_get(rootJ, setting.c_str());
-	if (jsonValue)
-		value = json_integer_value(jsonValue);
-
-	// houskeeping
-	json_decref(rootJ);
-
-	return value;
-}
-// save the given integer value in the global count modula settings file
-void saveDefaultIntegerValue(std::string setting, int value) {
-	// read the settings file
-	json_t *rootJ = readSettings();
-
-	// set the default theme value
-	json_object_set_new(rootJ, setting.c_str(), json_integer(value));
-
-	// save the updated data
-	saveSettings(rootJ);
-
-	// houskeeping
-	json_decref(rootJ);
-}
 struct Glompler : Module {
 
 	enum ParamIds {
@@ -133,14 +77,14 @@ struct Glompler : Module {
 	bool run2[8] = {false,false,false,false,false,false,false,false};
 
 	std::string lastPath2[8] = {
-		asset::plugin(pluginInstance,"res/Sounds/kick/kick01.wav"),
-		asset::plugin(pluginInstance,"res/Sounds/snare/snare01.wav"),
-        asset::plugin(pluginInstance,"res/Sounds/OH/OH01.wav"),
-		asset::plugin(pluginInstance,"res/Sounds/CH/CH01.wav"),
-		asset::plugin(pluginInstance,"res/Sounds/Cycles/Cycle01.wav"),
-		asset::plugin(pluginInstance,"res/Sounds/Databend/Databend01.wav"),
-        asset::plugin(pluginInstance,"res/Sounds/Emf/Emf01.wav"),
-        asset::plugin(pluginInstance,"res/Sounds/Glitch/Glitch01.wav")
+		asset::plugin(pluginInstance,"res/Sounds/01.wav"),
+		asset::plugin(pluginInstance,"res/Sounds/02.wav"),
+        asset::plugin(pluginInstance,"res/Sounds/03.wav"),
+		asset::plugin(pluginInstance,"res/Sounds/04.wav"),
+		asset::plugin(pluginInstance,"res/Sounds/05.wav"),
+		asset::plugin(pluginInstance,"res/Sounds/06.wav"),
+        asset::plugin(pluginInstance,"res/Sounds/07.wav"),
+        asset::plugin(pluginInstance,"res/Sounds/08.wav")
 		};
 
 
@@ -680,7 +624,7 @@ struct GlomplerWidget : ModuleWidget {
 
 			// output lights, mute buttons and jacks
 			for (int i = 0; i < 2; i++) {
-				addParam(createParamCentered<CountModulaLEDPushButton<CountModulaPBLight<GreenLight>>>(Vec(STD_COLUMN_POSITIONS[STD_COL6 + 16], STD_ROWS8[STD_ROW1 + (r * 2) + i]), module, Glompler::MUTE_PARAMS + + (r * 2) + i, Glompler::MUTE_PARAM_LIGHTS + + (r * 2) + i));
+			//	addParam(createParamCentered<CountModulaLEDPushButton<CountModulaPBLight<GreenLight>>>(Vec(STD_COLUMN_POSITIONS[STD_COL6 + 16], STD_ROWS8[STD_ROW1 + (r * 2) + i]), module, Glompler::MUTE_PARAMS + + (r * 2) + i, Glompler::MUTE_PARAM_LIGHTS + + (r * 2) + i));
 				addChild(createLightCentered<MediumLight<RedLight>>(Vec(STD_COLUMN_POSITIONS[STD_COL6 + 16 + 1], STD_ROWS8[STD_ROW1 + (r * 2) + i]), module, Glompler::TRIG_LIGHTS + (r * 2) + i));
 			//	addOutput(createOutputCentered<CountModulaJack>(Vec(STD_COLUMN_POSITIONS[STD_COL6 + 16 + 2], STD_ROWS8[STD_ROW1 + (r * 2) + i]), module, Glompler::TRIG_OUTPUTS + (r * 2) + i));
 			}

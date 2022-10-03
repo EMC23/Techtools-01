@@ -22,57 +22,27 @@
 			"Subtractive Synth"
 		  ]
 		},
-    {
-		  "slug": "Seq08",
-		  "name": "Seq08",
-		  "description": "Simple Seq08",
-		  "tags": [
-			"Glitch",
-			"Seq08"
-		  ]
-		},
-    {
-		  "slug": "AComparator",
-		  "name": "AComparator",
-		  "description": "Simple comparator",
-		  "tags": [
-			"Glitch",
-			"comparator"
-		  ]
-		},
-    	{
-		  "slug": "AMuxDemux",
-		  "name": "AMuxDemux",
-		  "description": "Simple Muxer/Demuxer",
-		  "tags": [
-			"Glitch",
-			"AMuxDemux"
-		  ]
-		},
-    	{
-		  "slug": "AMuxDemux",
-		  "name": "AMuxDemux",
-		  "description": "Simple Muxer/Demuxer",
-		  "tags": [
-			"Glitch",
-			"AMuxDemux"
-		  ]
-		},
 		{
 			"slug": "Scanner",
-			"name": "FMRadio",
-			"description": "rtl-sdr FM Radio Tuner",
+			"name": "Scanner",
+			"description": "FM police and Satellite Scanner",
 			"tags": [
-			  "Tuner"
-		]
-	  },
-	   {
-		"slug": "Glompler",
-		"name": "Glompler",
-		"description": "Glitch Rompler",
-		"tags": [
-		  "Rompler"
+			  "Glitch",
+			  "Scanner",
+			  "Subtractive Synth"
 			]
-		 }
+		  },
+		  {
+			"slug": "Glompler",
+			"name": "Glompler",
+			"description": "FM police and Satellite Scanner",
+			"tags": [
+			  "Glitch",
+			  "Scanner",
+			  "Subtractive Synth"
+			]
+		  }
+
+
 	]
 }

@@ -23,10 +23,12 @@ using namespace rack;
 // Forward-declare the Plugin
 extern Plugin *pluginInstance;
 
-extern Model *modelSinth;
-extern Model *modelSeq08;
-extern Model *modelAComparator;
-extern Model *modelAMuxDemux;
+ extern Model *modelSinth;
+ extern Model *modelGlompler;
+ extern Model *modelScanner;
+// extern Model *modelSeq08;
+// extern Model *modelAComparator;
+// extern Model *modelAMuxDemux;
 
 
 // settings file

@@ -42,39 +42,40 @@ struct CountModulaPBLight : TBase {
 // Base for lit buttons
 struct CountModulaLitPB : SvgSwitch {
 	ModuleLightWidget* light;
-	
+    ParamQuantity* paramQuantity = getParamQuantity();
+
 	CountModulaLitPB() {
 		momentary = false;
- 		
+
 		// no shadow for buttons
 		shadow->opacity = 0.0f;
 	}
-	
+
 	// override the base randomizer as it sets switches to invalid values.
-	void randomize() override {
-		SvgSwitch::randomize();
-		
-		if (paramQuantity->getValue() > 0.5f)
+	void randomize()  {
+
+
+		if ( paramQuantity->getValue() > 0.5f)
 			paramQuantity->setValue(1.0f);
 		else
 			paramQuantity->setValue(0.0f);
-	}	
+	}
 
 	void setFirstLightId(int firstLightId) {
 
-		if (paramQuantity)
+		if (paramQuantity->getValue())
 			light->module = paramQuantity->module;
-		
+
 		light->firstLightId = firstLightId;
-		
+
 		// set size to 79% of the bezel size - makes the led close enough in size to the grey area in the button svg
 		light->box.size = box.size.mult(0.79);
-		
+
 		// Move center of light to center of box
 		light->box.pos = box.size.div(2).minus(light->box.size.div(2));
 		addChild(light);
 	}
-	
+
 	void onChange(const event::Change& e) override {
 
 		if (!frames.empty() && paramQuantity) {
@@ -85,18 +86,18 @@ struct CountModulaLitPB : SvgSwitch {
 			light->module->lights[light->firstLightId].setBrightness(index > 0 ? 1.0 : 0.0);
 			fb->dirty = true;
 		}
-		
+
 		ParamWidget::onChange(e);
 	}
-	
+
 	void step() override{
 
 		if (light->module) {
 			light->module->lights[light->firstLightId].setBrightness(paramQuantity->getValue() > 0.5 ? 1.0 : 0.0);
 		}
-		
+
 		SvgSwitch::step();
-	}	
+	}
 };
 
 // Base for lit momentary buttons
@@ -136,7 +137,7 @@ struct CountModulaLEDPushButtonNoRandom :  CountModulaLitPB {
 
 		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Components/PushButton_0.svg")));
 	}
-	
+
 	// no randomise
 	void randomize () override {
 	}
@@ -213,9 +214,9 @@ template <class TParamWidget>
 TParamWidget* createParamCentered(math::Vec pos, engine::Module* module, int paramId, int lightId) {
 	TParamWidget* o = createParam<TParamWidget>(pos, module, paramId);
 	o->box.pos = o->box.pos.minus(o->box.size.div(2));
-	
+
 	o->setFirstLightId(lightId);
-	
+
 	return o;
 }
 
@@ -226,15 +227,16 @@ TParamWidget* createParamCentered(math::Vec pos, engine::Module* module, int par
 
 // unlit push button base
 struct CountModulaPB :  SvgSwitch {
+	    ParamQuantity* paramQuantity = getParamQuantity();
 	CountModulaPB() {
 		// no shadow for switches or buttons
 		shadow->opacity = 0.0f;
 	}
 
 	// override the base randomizer as it sets switches to invalid values.
-	void randomize() override {
-		SvgSwitch::randomize();
-		
+	void randomize()  {
+	//	SvgSwitch::randomize();
+
 		if (paramQuantity->getValue() > 0.5f)
 			paramQuantity->setValue(1.0f);
 		else
@@ -257,8 +259,8 @@ struct CountModulaUnlitPushButtonMomentary : CountModulaPB {
 
 		momentary = true;
     }
-}; 
- 
+};
+
 // small square push button
 struct CountModulaUnlitPushButtonMini : CountModulaPB {
     CountModulaUnlitPushButtonMini() {
@@ -271,11 +273,11 @@ struct CountModulaUnlitPushButtonMiniMomentary : CountModulaPB {
     CountModulaUnlitPushButtonMiniMomentary() {
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Components/PushButtonMini_0.svg")));
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Components/PushButtonMini_0.svg")));
-		
+
  		momentary = true;
     }
 };
- 
+
 // big square push button
 struct CountModulaUnlitPushButtonSwitchBig : CountModulaPB {
     CountModulaUnlitPushButtonSwitchBig() {
@@ -288,11 +290,11 @@ struct CountModulaUnlitPushButtonBigMomentary : CountModulaPB {
     CountModulaUnlitPushButtonBigMomentary() {
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Components/PushButtonBig_0.svg")));
         addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Components/PushButtonBig_0.svg")));
-		
+
  		momentary = true;
     }
 };
- 
+
 // really big square push button
 struct CountModulaUnlitPushButtonMega : CountModulaPB {
     CountModulaUnlitPushButtonMega() {

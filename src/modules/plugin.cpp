@@ -14,9 +14,11 @@ void init(Plugin *p) {
 	pluginInstance = p;
 
 	p->addModel(modelSinth);
-	p->addModel(modelSeq08);
-	p->addModel(modelAComparator);
-	p->addModel(modelAMuxDemux);
+	p->addModel(modelGlompler);
+	p->addModel(modelScanner);
+	// p->addModel(modelSeq08);
+	// p->addModel(modelAComparator);
+	// p->addModel(modelAMuxDemux);
 
 }
 
